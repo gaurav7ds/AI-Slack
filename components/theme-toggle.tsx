@@ -10,19 +10,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function ThemeToggle() {
+export function ThemeToggle({ isNav }: { isNav?: boolean }) {
   const { setTheme } = useTheme()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+        {
+          isNav ? (
+            <DropdownMenuItem>Theme</DropdownMenuItem>
+          ) : (
+            <Button variant="outline" size="icon">
+              <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          )
+        }
+      </DropdownMenuTrigger >
+      <DropdownMenuContent align="end" side={isNav ? "right" : "bottom"} sideOffset={isNav ? 10 : 10} alignOffset={isNav ? -40 : -50}>
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>
@@ -33,6 +39,6 @@ export function ThemeToggle() {
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
-    </DropdownMenu>
+    </DropdownMenu >
   )
 }
